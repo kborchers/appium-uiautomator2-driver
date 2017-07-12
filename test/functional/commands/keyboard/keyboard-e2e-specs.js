@@ -43,18 +43,17 @@ async function getElement (driver, className) {
 }
 
 async function runTextEditTest (driver, testText, keys = false) {
-  let el = _.last(await driver.findElOrEls('class name', EDITTEXT_CLASS, true));
-  el = el.ELEMENT;
-  await driver.clear(el);
+  let el = _.last(await driver.elementsByClassName(EDITTEXT_CLASS));
+  await el.clear();
 
   if (keys) {
     await driver.keys([testText]);
   } else {
-    await driver.setValue(testText, el);
+    await el.sendKeys(testText, el);
   }
 
   await retryInterval(10, 1000, async () => {
-    let text = await driver.getText(el);
+    let text = await el.text();
     deSamsungify(text).should.be.equal(testText);
   });
 
@@ -143,8 +142,8 @@ describe('keyboard', function () {
       }
       await driver.activateIMEEngine(selectedEngine);
     });
-    after(async function () {
-      await driver.deleteSession();
+    after(async () => {
+      await driver.quit();
     });
 
 
@@ -164,11 +163,10 @@ describe('keyboard', function () {
         // there is currently no way to assert anything about the contents
         // of a password field, since there is no way to access the contents
         // but this should, at the very least, not fail
-        let els = await driver.findElOrEls('class name', EDITTEXT_CLASS, true);
-        let el = els[1].ELEMENT;
+        let el = await driver.elementByClassName(EDITTEXT_CLASS);
 
-        await driver.setValue('super-duper password', el);
-        await driver.clear(el);
+        await el.sendKeys('super-duper password');
+        await el.clear();
       });
 
       it('should be able to type in length-limited field', async function () {

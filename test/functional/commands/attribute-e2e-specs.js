@@ -55,12 +55,12 @@ describe('apidemo - attributes', function () {
     await driver.elementDisplayed(animationEl).should.eventually.become(true);
   });
   it('should be able to get element location using getLocation', async () => {
-    let location = await driver.getLocation(animationEl);
+    let location = await animationEl.getLocation();
     location.x.should.be.at.least(0);
     location.y.should.be.at.least(0);
   });
   it('should be able to get element location using getLocationInView', async () => {
-    let location = await driver.getLocationInView(animationEl);
+    let location = await animationEl.getLocationInView();
     location.x.should.be.at.least(0);
     location.y.should.be.at.least(0);
   });

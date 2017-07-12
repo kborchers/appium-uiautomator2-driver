@@ -17,7 +17,7 @@ describe('file movement', function () {
     driver = await initDriver(APIDEMOS_CAPS);
   });
   after(async () => {
-    await driver.deleteSession();
+    await driver.quit();
   });
 
   function getRandomDir () {

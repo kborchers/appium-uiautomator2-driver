@@ -14,7 +14,7 @@ describe('apidemo - orientation', function () {
     driver = await initDriver(Object.assign({}, APIDEMOS_CAPS, {appActivity: '.view.TextFields'}));
   });
   after(async () => {
-    await driver.deleteSession();
+    await driver.quit();
   });
   it('should rotate screen to landscape', async () => {
     await driver.setOrientation('PORTRAIT');

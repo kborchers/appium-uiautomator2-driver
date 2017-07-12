@@ -14,13 +14,12 @@ describe.skip("geo-location", function () {
     driver = await initDriver(GPS_DEMO_CAPS);
   });
   after(async () => {
-    await driver.deleteSession();
+    await driver.quit();
   });
 
   it('should set geo location', async () => {
     let getText = async () => {
-      let els = await driver.findElOrEls('class name', 'android.widget.TextView', true);
-      return await driver.getText(els[1].ELEMENT);
+      return await driver.elementsByClassName('android.widget.TextView').text();
     };
 
     let latitude = '27.17';

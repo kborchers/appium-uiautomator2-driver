@@ -17,15 +17,11 @@ describe('apidemo - touch', function () {
       }));
     });
     after(async () => {
-      await driver.deleteSession();
+      await driver.quit();
     });
 
     it('should scroll two different lists', async () => {
-      let lists = await driver.findElOrEls('class name', 'android.widget.ListView', true);
-      lists.length.should.be.at.least(2);
-
-      let leftList = lists[0].ELEMENT;
-      let rightList = lists[1].ELEMENT;
+      let [leftList, rightList] = await driver.elementsByClassName('android.widget.ListView');
 
       let leftGestures = [
         {action: 'press', options: {element: leftList}},
@@ -52,11 +48,11 @@ describe('apidemo - touch', function () {
       }));
     });
     after(async () => {
-      await driver.deleteSession();
+      await driver.quit();
     });
 
     async function assertElement (driver, present = true) {
-      let els = await driver.findElOrEls('xpath', "//*[@text='Abertam']", true);
+      let els = await driver.elementsByXPath("//*[@text='Abertam']");
       els.should.be.an.instanceof(Array);
       els.should.have.length(present ? 1 : 0);
     }
