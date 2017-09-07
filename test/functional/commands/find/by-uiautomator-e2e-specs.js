@@ -99,9 +99,9 @@ describe('Find - uiautomator', function () {
     els.length.should.be.above(0);
   });
   it.skip('should find an element in the second selector if the first finds no elements (when finding a single element)', async () => {
-    // TODO: This test is broken. 
-    //  * The test above this one works and it proxies to 'POST /elements'. 
-    //  * This test doesn't work and the only difference is that it proxies to 'POST /element' 
+    // TODO: This test is broken.
+    //  * The test above this one works and it proxies to 'POST /elements'.
+    //  * This test doesn't work and the only difference is that it proxies to 'POST /element'
     //  (see find.js for reference)
     let selector = 'new UiSelector().className("not.a.class"); new UiSelector().className("android.widget.TextView")';
     await driver.elementByAndroidUIAutomator(selector).should.eventually.exist;

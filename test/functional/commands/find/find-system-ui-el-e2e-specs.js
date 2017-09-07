@@ -26,14 +26,14 @@ describe('Find - android ui elements @skip-ci', function () {
     }
   });
   it('should not find statusBarBackground element via xpath', async () => {
-    let statusBar = await driver.elementsByXPath( `//*[@resource-id='android:id/statusBarBackground']`); //check server (NPE) if allowInvisibleElements is unset on server side
+    let statusBar = await driver.elementsByXPath(`//*[@resource-id='android:id/statusBarBackground']`); //check server (NPE) if allowInvisibleElements is unset on server side
     statusBar.length.should.be.equal(0);
     await driver.updateSettings({"allowInvisibleElements": false});
-    let statusBarWithInvisibleEl = await driver.elementsByXPath( `//*[@resource-id='android:id/statusBarBackground']`);
+    let statusBarWithInvisibleEl = await driver.elementsByXPath(`//*[@resource-id='android:id/statusBarBackground']`);
     statusBarWithInvisibleEl.length.should.be.equal(0);
   });
   it('should find statusBarBackground element via xpath', async () => {
     await driver.updateSettings({"allowInvisibleElements": true});
-    await driver.elementsByXPath( `//*[@resource-id='android:id/statusBarBackground']`).should.eventually.exist;
+    await driver.elementsByXPath(`//*[@resource-id='android:id/statusBarBackground']`).should.eventually.exist;
   });
 });

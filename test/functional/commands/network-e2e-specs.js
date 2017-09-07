@@ -15,7 +15,8 @@ describe('wifi @skip-ci', function () {
   after(async () => {
     await driver.quit();
   });
-  it('should enable WIFI', async () => {
+  it.skip('should enable WIFI', async () => {
+    // TODO: This is returning Permission Denial: not allowed to send broadcast android.intent.action.AIRPLANE_MODE from pid=25928, uid=2000; also isWifiOn is not a method
     let WIFI = 2;
     await driver.setNetworkConnection(WIFI);
     await driver.isWifiOn().should.eventually.equal(true);

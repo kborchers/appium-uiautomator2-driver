@@ -19,48 +19,48 @@ describe('Find - xpath', function () {
     await driver.quit();
   });
   it('should find element by type', async () => {
-    let el = await driver.elementByXPath( `//${atv}`);
-    await el.text().should.eventually.equal('API DEMOS');
+    let el = await driver.elementByXPath(`//${atv}`);
+    await el.text().should.eventually.equal('API Demos');
   });
   it('should find element by text', async () => {
-    let el = await driver.elementByXPath( `//${atv}[@text='Accessibility']`);
+    let el = await driver.elementByXPath(`//${atv}[@text='Accessibility']`);
     await el.text().should.eventually.equal('Accessibility');
   });
   it('should find element by attribute', async () => {
-    await driver.elementsByXPath( `//*[@enabled='true' and @focused='true']`)
+    await driver.elementsByXPath(`//*[@enabled='true' and @focused='true']`)
       .should.eventually.have.length(1);
   });
   it('should find exactly one element via elementsByXPath', async () => {
-    let els = await driver.elementsByXPath( `//${atv}[@text='Accessibility']`);
+    let els = await driver.elementsByXPath(`//${atv}[@text='Accessibility']`);
     els.length.should.equal(1);
     await els[0].text().should.eventually.equal('Accessibility');
   });
   it('should find element by partial text', async () => {
-    let el = await driver.elementByXPath( `//${atv}[contains(@text, 'Accessibility')]`);
+    let el = await driver.elementByXPath(`//${atv}[contains(@text, 'Accessibility')]`);
     await el.text().should.eventually.equal('Accessibility');
   });
   it('should find the last element', async () => {
-    let el = await driver.elementByXPath( `(//${atv})[last()]`);
+    let el = await driver.elementByXPath(`(//${atv})[last()]`);
     let text = await el.text();
     ["OS", "Text", "Views", "Preference"].should.include(text);
   });
   it('should find element by index and embedded desc', async () => {
-    let el = await driver.elementByXPath( `//${f}//${atv}[5]`);
+    let el = await driver.elementByXPath(`//${f}//${atv}[5]`);
     await el.text().should.eventually.equal('Content');
   });
   it('should find all elements', async () => {
-    let els = await driver.elementsByXPath( `//*`);
+    let els = await driver.elementsByXPath(`//*`);
     els.length.should.be.above(2);
   });
   it('should find the first element when searching for all elements', async () => {
-    let el = await driver.elementByXPath( `//*`);
+    let el = await driver.elementByXPath(`//*`);
     el.should.exist;
   });
   it('should find less elements with compression turned on', async () => {
     await driver.updateSettings({"ignoreUnimportantViews": false});
-    let elementsWithoutCompression = await driver.elementsByXPath( `//*`);
+    let elementsWithoutCompression = await driver.elementsByXPath(`//*`);
     await driver.updateSettings({"ignoreUnimportantViews": true});
-    let elementsWithCompression = await driver.elementsByXPath( `//*`);
+    let elementsWithCompression = await driver.elementsByXPath(`//*`);
     elementsWithoutCompression.length.should.be.greaterThan(elementsWithCompression.length);
   });
   it('should find toast message element by text @skip-ci', async function () {
@@ -72,17 +72,17 @@ describe('Find - xpath', function () {
     let popUpEl = await driver.elementByAccessibilityId('Make a Popup!');
 
     await popUpEl.click();
-    await driver.waitForElementByXPath( `.//*[@text='Search']`);
-    let searchEl = await driver.elementByXPath( `.//*[@text='Search']`);
+    await driver.waitForElementByXPath(`.//*[@text='Search']`);
+    let searchEl = await driver.elementByXPath(`.//*[@text='Search']`);
     await searchEl.click();
-    await driver.elementByXPath( `//*[@text='Clicked popup menu item Search']`)
+    await driver.elementByXPath(`//*[@text='Clicked popup menu item Search']`)
         .should.eventually.exist;
 
     await popUpEl.click();
-    await driver.waitForElementByXPath( `.//*[@text='Add']`);
-    let addEl =await driver.elementByXPath( `.//*[@text='Add']`);
+    await driver.waitForElementByXPath(`.//*[@text='Add']`);
+    let addEl =await driver.elementByXPath(`.//*[@text='Add']`);
     await addEl.click();
-    await driver.elementByXPath( `//*[@text='Clicked popup menu item Add']`)
+    await driver.elementByXPath(`//*[@text='Clicked popup menu item Add']`)
         .should.eventually.exist;
   });
 });
